@@ -1,4 +1,5 @@
 import React from "react";
+import parseISOString from "../utils/date";
 
 function TransactionList({ transactions }) {
   return (
@@ -18,6 +19,9 @@ function TransactionList({ transactions }) {
             <div>
               <span className="font-semibold">Type: </span>
               {transaction.type}
+              <span className="font-small inline-block float-right">
+                {parseISOString(transaction.date)}
+              </span>
             </div>
           </li>
         ))}

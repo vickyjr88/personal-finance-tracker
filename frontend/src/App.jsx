@@ -8,6 +8,7 @@ import SignupForm from "./pages/SignupForm";
 import LoginForm from "./pages/LoginForm";
 import Logout from "./components/Logout";
 import CreateTransaction from "./pages/CreateTransaction";
+import Insights from "./pages/Insights";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -45,6 +46,7 @@ function App() {
             <Route path="/login" element={<LoginForm />} />
             <Route path="/signup" element={<SignupForm />} />
             <Route path="/transaction" element={<CreateTransaction />} />
+            <Route path="/insights" element={<Insights />} />
           </Routes>
         </main>
         <footer className="bg-blue-500 p-4 text-white text-center">

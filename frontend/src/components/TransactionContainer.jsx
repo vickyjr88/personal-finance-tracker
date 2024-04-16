@@ -22,7 +22,7 @@ function TransactionContainer() {
     fetchTransactions();
   }, []); // Empty dependency array to fetch transactions only once when the component mounts
 
-  return <TransactionList transactions={transactions} />;
+  return <TransactionList transactions={transactions.reverse()} />;
 }
 
 export default TransactionContainer;
