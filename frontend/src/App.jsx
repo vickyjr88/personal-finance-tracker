@@ -7,6 +7,7 @@ import "./App.css";
 import SignupForm from "./pages/SignupForm";
 import LoginForm from "./pages/LoginForm";
 import Logout from "./components/Logout";
+import CreateTransaction from "./pages/CreateTransaction";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -43,6 +44,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/signup" element={<SignupForm />} />
+            <Route path="/transaction" element={<CreateTransaction />} />
           </Routes>
         </main>
         <footer className="bg-blue-500 p-4 text-white text-center">

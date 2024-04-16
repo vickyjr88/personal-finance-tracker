@@ -61,7 +61,8 @@ db.serialize(() => {
 
 // Middleware to verify JWT
 const verifyToken = (req: Request, res: Response, next: any) => {
-  const token = req.headers["authorization"];
+  const bearerToken = req.headers["authorization"];
+  const token = bearerToken && bearerToken.split(" ")[1];
 
   if (!token) {
     return res.status(403).json({ error: "Token is required" });
@@ -132,8 +133,9 @@ app.post("/api/login", (req: Request, res: Response) => {
 
 // Add transaction route
 app.post("/api/transactions", verifyToken, (req: Request, res: Response) => {
-  const { amount, category, type, date } = req.body;
+  const { amount, category, type } = req.body;
   const userId = req.body.userId;
+  const date = new Date().toISOString();
 
   db.run(
     `INSERT INTO transactions (userId, amount, category, type, date) VALUES (?, ?, ?, ?, ?)`,
@@ -166,6 +168,85 @@ app.get("/api/transactions", verifyToken, (req: Request, res: Response) => {
     }
   );
 });
+
+// Fetch transaction summary
+app.get(
+  "/api/summary-by-type",
+  verifyToken,
+  async (req: Request, res: Response) => {
+    const userId = req.body.userId;
+
+    // Query to aggregate transaction data for a specific user
+    const sql = `
+    SELECT type, 
+           SUM(amount) AS totalAmount, 
+           COUNT(*) AS count 
+    FROM transactions 
+    WHERE userId = ? 
+    GROUP BY type;
+  `;
+
+    // Execute the query with the user ID parameter
+    db.all(sql, [userId], (err, rows) => {
+      if (err) {
+        console.error("Error fetching aggregated data:", err);
+        res.status(500).json({ error: "Internal server error" });
+        return;
+      }
+
+      // Convert rows to aggregated data format
+      const aggregatedData = rows.reduce((acc: any, row: any) => {
+        acc[row.type] = {
+          totalAmount: row.totalAmount,
+          count: row.count,
+        };
+        return acc;
+      }, {});
+
+      // Send aggregated data as JSON response
+      res.json(aggregatedData);
+    });
+  }
+);
+
+app.get(
+  "/api/summary-by-category",
+  verifyToken,
+  async (req: Request, res: Response) => {
+    const userId = req.body.userId;
+
+    // Query to aggregate transaction data for a specific user
+    const sql = `
+    SELECT category, 
+           SUM(amount) AS totalAmount, 
+           COUNT(*) AS count 
+    FROM transactions 
+    WHERE userId = ? 
+    GROUP BY category;
+  `;
+
+    // Execute the query with the user ID parameter
+    db.all(sql, [userId], (err, rows) => {
+      if (err) {
+        console.error("Error fetching aggregated data:", err);
+        res.status(500).json({ error: "Internal server error" });
+        return;
+      }
+
+      // Convert rows to aggregated data format
+      const aggregatedData = rows.reduce((acc: any, row: any) => {
+        acc[row.category] = {
+          totalAmount: row.totalAmount,
+          count: row.count,
+        };
+        return acc;
+      }, {});
+
+      // Send aggregated data as JSON response
+      res.json(aggregatedData);
+    });
+  }
+);
 
 // Add more routes for goals management, income vs. expenses analysis, etc.
 

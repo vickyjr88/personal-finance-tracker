@@ -1,0 +1,10 @@
+
+GET http://localhost:3500/api/summary-by-type
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcxMzI2MjMyMn0.B_mOkYYb7m_8-nisR64FnLxYkcgqbcryLIJd1Y1g7rE
+
+#### 
+
+GET http://localhost:3500/api/summary-by-category
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcxMzI2MjMyMn0.B_mOkYYb7m_8-nisR64FnLxYkcgqbcryLIJd1Y1g7rE
