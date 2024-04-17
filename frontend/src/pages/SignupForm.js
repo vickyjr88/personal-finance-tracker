@@ -5,12 +5,13 @@ import { useNavigate } from 'react-router-dom';
 function SignupForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/register', { username, password });
+      const response = await axios.post('/api/register', { name, username, password });
       console.log(response.data);
       navigate('/login');
       // Redirect to login page or dashboard upon successful signup
@@ -23,6 +24,18 @@ function SignupForm() {
 <div className="max-w-md mx-auto mt-8">
       <h2 className="text-2xl font-semibold mb-4">Sign Up</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
+          <label htmlFor="name" className="block text-gray-700">Name</label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500"
+            placeholder="Enter your username"
+            required
+          />
+        </div>
         <div>
           <label htmlFor="username" className="block text-gray-700">Username</label>
           <input
