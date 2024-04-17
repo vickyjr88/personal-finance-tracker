@@ -11,6 +11,7 @@ import CreateTransaction from "./pages/CreateTransaction";
 import Insights from "./pages/Insights";
 import CreateGoal from "./pages/CreateGoal";
 import GoalTracker from "./pages/GoalTracker";
+import ViewGoal from "./pages/ViewGoal";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -51,6 +52,7 @@ function App() {
             <Route path="/insights" element={<Insights />} />
             <Route path="/goal-tracker" element={<GoalTracker />} />
             <Route path="/new-goal" element={<CreateGoal />} />
+            <Route path="/goals/:id" element={<ViewGoal />} />
           </Routes>
         </main>
         <footer className="bg-blue-500 p-4 text-white text-center">
