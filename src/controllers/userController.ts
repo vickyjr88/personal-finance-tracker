@@ -61,7 +61,6 @@ const fetchUser = (req: Request, res: Response) => {
       console.error(err.message);
       res.status(500).json({ error: "Internal Server Error" });
     }
-    console.log(row);
     res.status(200).json(row);
   });
 };
