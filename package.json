@@ -8,7 +8,7 @@
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc && cd frontend && npm run build && cd ..",
     "start": "node build/server.js",
-    "postinstall": "npm run build && cd frontend && npm install && npm run build && cd .. && echo 'Build complete'"
+    "postinstall": "npm run build && cd frontend && npm install && cd .. && echo 'Build complete'"
   },
   "repository": {
     "type": "git",
