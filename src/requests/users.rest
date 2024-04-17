@@ -37,4 +37,10 @@ Content-Type: application/json
     "password": "123456#KE2"
 } 
 
+#####
+
+GET http://localhost:3500/api/users/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcxMzI2MjMyMn0.B_mOkYYb7m_8-nisR64FnLxYkcgqbcryLIJd1Y1g7rE
+
 

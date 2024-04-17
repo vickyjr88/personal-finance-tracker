@@ -4,7 +4,7 @@ import db from "../config/database";
 import jwt from "jsonwebtoken";
 
 const signup = (req: Request, res: Response) => {
-  const { username, password } = req.body;
+  const { name, username, password } = req.body;
 
   bcrypt.hash(password, 10, (err: any, hash: string) => {
     if (err) {
@@ -12,8 +12,8 @@ const signup = (req: Request, res: Response) => {
       res.status(500).json({ error: "Internal Server Error" });
     } else {
       db.run(
-        `INSERT INTO users (username, password) VALUES (?, ?)`,
-        [username, hash],
+        `INSERT INTO users (name, username, password) VALUES (?, ?, ?)`,
+        [name, username, hash],
         (err) => {
           if (err) {
             console.error(err.message);
@@ -54,4 +54,16 @@ const login = (req: Request, res: Response) => {
   );
 };
 
-export { signup, login };
+const fetchUser = (req: Request, res: Response) => {
+  const id = req.body.userId;
+  db.get(`SELECT * FROM users WHERE id = ?`, [id], function (err, row) {
+    if (err) {
+      console.error(err.message);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+    console.log(row);
+    res.status(200).json(row);
+  });
+};
+
+export { signup, login, fetchUser };

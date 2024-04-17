@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import db from "../config/database";
+import { credit, debit } from "../services/accountService";
 
 const newTransaction = (req: Request, res: Response) => {
   const { amount, category, type } = req.body;
@@ -14,6 +15,11 @@ const newTransaction = (req: Request, res: Response) => {
         console.error(err.message);
         res.status(500).json({ error: "Internal Server Error" });
       } else {
+        if (type === "expense") {
+          debit(amount, userId);
+        } else {
+          credit(amount, userId);
+        }
         res.status(201).json({ id: this.lastID });
       }
     }

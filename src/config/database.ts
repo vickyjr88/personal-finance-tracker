@@ -10,7 +10,9 @@ db.serialize(() => {
   db.run(`CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY,
         username TEXT UNIQUE,
-        password TEXT
+        password TEXT,
+        name TEXT,
+        balance REAL DEFAULT 0
     )`);
 
   db.run(`CREATE TABLE IF NOT EXISTS transactions (

@@ -4,7 +4,7 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import path from "path";
 import verifyToken from "./middleware/verifyToken";
-import { login, signup } from "./controllers/userController";
+import { fetchUser, login, signup } from "./controllers/userController";
 import {
   fetchTransactions,
   newTransaction,
@@ -13,7 +13,13 @@ import {
   aggregateTransactionsByCategory,
   aggregateTransactionsByType,
 } from "./controllers/summaryController";
-import { fetchGoals, newGoal } from "./controllers/goalsController";
+import {
+  deleteGoal,
+  fetchGoal,
+  fetchGoals,
+  newGoal,
+  topUpGoal,
+} from "./controllers/goalsController";
 
 // Load the .env file
 dotenv.config();
@@ -38,6 +44,9 @@ app.use(cookieParser());
 app.post("/api/register", signup);
 app.post("/api/login", login);
 
+// Get user profile route
+app.get("/api/users/:id", verifyToken, fetchUser);
+
 // Add transaction route
 app.post("/api/transactions", verifyToken, newTransaction);
 
@@ -47,8 +56,17 @@ app.get("/api/transactions", verifyToken, fetchTransactions);
 // Add goal route
 app.post("/api/goals", verifyToken, newGoal);
 
+// Top up goal route
+app.put("/api/goals", verifyToken, topUpGoal);
+
 // Fetch goals route
 app.get("/api/goals", verifyToken, fetchGoals);
+
+// Fetch goal route
+app.get("/api/goals/:id", verifyToken, fetchGoal);
+
+// Delete goal route
+app.delete("/api/goals/:id", verifyToken, deleteGoal);
 
 // Fetch transaction summary
 app.get("/api/summary-by-type", verifyToken, aggregateTransactionsByType);

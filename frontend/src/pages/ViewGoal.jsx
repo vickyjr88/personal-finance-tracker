@@ -52,6 +52,7 @@ function ViewGoal() {
         const response = await axios.put(
           "/api/goals",
           {
+            goalName: goal.goalName,
             amount: Number(amount) + goal.currentAmount,
             id: goal.id,
           },
