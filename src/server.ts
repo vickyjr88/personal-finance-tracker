@@ -13,6 +13,7 @@ import {
   aggregateTransactionsByCategory,
   aggregateTransactionsByType,
 } from "./controllers/summaryController";
+import { fetchGoals, newGoal } from "./controllers/goalsController";
 
 // Load the .env file
 dotenv.config();
@@ -42,6 +43,12 @@ app.post("/api/transactions", verifyToken, newTransaction);
 
 // Fetch transactions route
 app.get("/api/transactions", verifyToken, fetchTransactions);
+
+// Add goal route
+app.post("/api/goals", verifyToken, newGoal);
+
+// Fetch goals route
+app.get("/api/goals", verifyToken, fetchGoals);
 
 // Fetch transaction summary
 app.get("/api/summary-by-type", verifyToken, aggregateTransactionsByType);

@@ -9,6 +9,8 @@ import LoginForm from "./pages/LoginForm";
 import Logout from "./components/Logout";
 import CreateTransaction from "./pages/CreateTransaction";
 import Insights from "./pages/Insights";
+import CreateGoal from "./pages/CreateGoal";
+import GoalTracker from "./pages/GoalTracker";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -47,6 +49,8 @@ function App() {
             <Route path="/signup" element={<SignupForm />} />
             <Route path="/transaction" element={<CreateTransaction />} />
             <Route path="/insights" element={<Insights />} />
+            <Route path="/goal-tracker" element={<GoalTracker />} />
+            <Route path="/new-goal" element={<CreateGoal />} />
           </Routes>
         </main>
         <footer className="bg-blue-500 p-4 text-white text-center">

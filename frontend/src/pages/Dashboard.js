@@ -13,7 +13,8 @@ function Dashboard() {
       </div>
       <div className="max-w-md mx-auto mt-8">
       <CategoryDonutGraph />
-      <Link to="/insights" className="hover:underline inline-block float-right">Insights</Link>
+      <Link to="/insights" className="hover:underline inline-block float-right p-5">Insights</Link>
+      <Link to="/goal-tracker" className="hover:underline inline-block float-right p-5">Goal tracker</Link>
       </div>
       <TransactionContainer />
     </div>
