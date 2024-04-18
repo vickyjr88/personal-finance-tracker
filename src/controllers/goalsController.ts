@@ -35,7 +35,7 @@ const topUpGoal = (req: Request, res: Response) => {
         console.error(err.message);
         res.status(500).json({ error: "Internal Server Error" });
       } else {
-        createTopUpTransaction(userId, amount, goalName);
+        createTopUpTransaction(userId, Number(amount), goalName);
         res.status(201).json({ id: id });
       }
     }

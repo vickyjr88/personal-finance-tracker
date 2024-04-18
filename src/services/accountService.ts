@@ -7,7 +7,7 @@ const debit = async (amount: number, accountId: string) => {
       return;
     }
     console.log(row);
-    const currentAmount = row.balance - amount;
+    const currentAmount = Number(row.balance) - amount;
     db.run(
       `UPDATE users SET balance = ? WHERE id = ?`,
       [currentAmount, accountId],
@@ -29,7 +29,7 @@ const credit = async (amount: number, accountId: string) => {
       return;
     }
     console.log(row);
-    const currentAmount = row.balance + amount;
+    const currentAmount = Number(row.balance) + amount;
     db.run(
       `UPDATE users SET balance = ? WHERE id = ?`,
       [currentAmount, accountId],
